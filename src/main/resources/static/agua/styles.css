@@ -24,9 +24,29 @@ body {
     align-items: center;
     position: relative;
 }
+.pipe {
+    position: absolute;
+    background-color: #00f;
+    animation: flow 2s infinite;
+}
+
+.pipe.horizontal {
+    height: 4px;
+    width: 100%;
+}
+
+.pipe.vertical {
+    width: 4px;
+    height: 100%;
+}
+
+@keyframes flow {
+    0% { background-color: #00f; }
+    50% { background-color: #0ff; }
+    100% { background-color: #00f; }
+}
 
 .building {
-    background-color: #4287f5;
     color: white;
     text-align: center;
     font-size: 12px;
@@ -113,4 +133,9 @@ body {
             transparent 20px
     );
     transform: translateX(-50%);
+}
+#waterConsumptionChart {
+    max-width: 600px;
+    max-height: 600px;
+    margin: auto;
 }
