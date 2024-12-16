@@ -6,6 +6,7 @@ body {
     justify-content: center;
     margin: 0;
     padding: 0;
+    background-color: #6e6e6e;
 
 }
 
@@ -138,4 +139,18 @@ body {
     max-width: 600px;
     max-height: 600px;
     margin: auto;
+}
+.recycling-container {
+    display: inline-block;
+    margin: 0 1px;
+}
+.bus-stop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px; /* Font size for the text */
+    writing-mode: vertical-rl; /* Display text vertically */
+    text-orientation: mixed; /* Ensure text orientation is correct */
+    border: none; /* No border */
+    color: gray;
 }

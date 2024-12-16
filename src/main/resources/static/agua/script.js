@@ -57,6 +57,12 @@ if (board) {
             cell.appendChild(branchPipe2);
         }
 
+        // Apply bus stop style to specific cells
+        if ((row === 0 && col === 1) || (row === 6 && col === 7)) {
+            cell.classList.add('bus-stop');
+            cell.textContent = 'BUS'; // Add text to the bus stop
+        }
+
         board.appendChild(cell);
     }
 
@@ -99,6 +105,11 @@ if (board) {
                 },
                 options: {
                     plugins: {
+                        legend: {
+                            labels: {
+                                color: 'black' // Set legend text color to black
+                            }
+                        },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
@@ -116,3 +127,40 @@ if (board) {
 } else {
     console.error('Element with id "board-agua" not found.');
 }
+fetch('/mapa/residuos')
+    .then(response => response.json())
+    .then(recyclingPoints => {
+        if (Array.isArray(recyclingPoints)) {
+            recyclingPoints.forEach(point => {
+                if (point.x >= 0 && point.x < gridWidth && point.y >= 0 && point.y < gridHeight) {
+                    const index = point.y * gridWidth + point.x;
+                    const cell = board.children[index];
+
+                    const container1 = document.createElement('div');
+                    container1.classList.add('recycling-container');
+                    container1.style.width = `${point.width / 3}px`;
+                    container1.style.height = `${point.height / 3}px`;
+                    container1.style.backgroundColor = point.color1;
+
+                    const container2 = document.createElement('div');
+                    container2.classList.add('recycling-container');
+                    container2.style.width = `${point.width / 3}px`;
+                    container2.style.height = `${point.height / 3}px`;
+                    container2.style.backgroundColor = point.color2;
+
+                    const container3 = document.createElement('div');
+                    container3.classList.add('recycling-container');
+                    container3.style.width = `${point.width / 3}px`;
+                    container3.style.height = `${point.height / 3}px`;
+                    container3.style.backgroundColor = point.color3;
+
+                    cell.appendChild(container1);
+                    cell.appendChild(container2);
+                    cell.appendChild(container3);
+                }
+            });
+        } else {
+            console.error('Invalid recycling points response:', recyclingPoints);
+        }
+    })
+    .catch(error => console.error('Error fetching recycling points:', error));
