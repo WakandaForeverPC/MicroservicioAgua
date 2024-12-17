@@ -57,16 +57,16 @@ if (board) {
             cell.appendChild(branchPipe2);
         }
 
-        // Apply bus stop style to specific cells
+
         if ((row === 0 && col === 1) || (row === 6 && col === 7)) {
             cell.classList.add('bus-stop');
-            cell.textContent = 'BUS'; // Add text to the bus stop
+            cell.textContent = 'BUS'; // añadimos parada de bus
         }
 
         board.appendChild(cell);
     }
 
-    // Fetch and render static buildings
+    // renderizamos edificios de la url
     fetch('http://localhost:8080/mapa/edificios')
         .then(response => response.json())
         .then(buildings => {
@@ -82,6 +82,11 @@ if (board) {
                     buildingDiv.style.width = `${building.width}px`;
                     buildingDiv.style.height = `${building.height}px`;
                     buildingDiv.style.backgroundColor = building.color; // Assign building color
+
+                    // Aplicar clase hospital al edificio con id 29L
+                    if (building.id === 29) {
+                        buildingDiv.classList.add('hospital');
+                    }
 
                     cell.appendChild(buildingDiv);
 
